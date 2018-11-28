@@ -1,5 +1,5 @@
-import MapKit
 import Foundation
+import MapKit
 
 final class LocationService {
     

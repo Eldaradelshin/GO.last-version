@@ -61,7 +61,6 @@ extension LocationsListViewController: UITableViewDataSource, UITableViewDelegat
         
         let location = matchingItems[indexPath.row]
         
-        // TODO: - отключить появление алерта когда в таблице точки маршрута
         let alert = UIAlertController(title: "Добавить?",
                                       message: location.name,
                                       preferredStyle: .alert)

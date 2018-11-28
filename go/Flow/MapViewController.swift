@@ -11,6 +11,7 @@ class MapViewController: UIViewController {
     static var globalRegion = MKCoordinateRegion()
     let locationManager = CLLocationManager()
     let repository = RepositoryService.shared
+    var destination = LocationsListViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +38,9 @@ class MapViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "containerSegue" {
-            let controller = segue.destination as? LocationsListViewController
-            controller?.placesSearchController.delegate = self
+            // swiftlint:disable next force_cast
+            destination = segue.destination as! LocationsListViewController
+            destination.placesSearchController.delegate = self
         }
     }
     
@@ -63,6 +65,7 @@ extension MapViewController: BuildRoute {
     
     func buldRoute() {
         
+        destination.placesSearchController.isActive = false
         let array = repository.read()
         print("building route from \(array.count) points")
     }

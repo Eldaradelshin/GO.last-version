@@ -1,7 +1,7 @@
-import MapKit
 import Foundation
+import MapKit
 
-fileprivate let UDRouteKey = "route"
+private let UDRouteKey = "route"
 
 /// Реализация хранилища данных на основе UserDefaults
 final class RepositoryService {
@@ -18,6 +18,7 @@ final class RepositoryService {
             return [MKMapItem]()
         }
         
+        // swiftlint:disable next force_cast
         do {
             let array = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [MKMapItem.self], from: data)
             return array as! [MKMapItem]
@@ -40,12 +41,12 @@ final class RepositoryService {
         if !elements.contains(element) {
             elements.append(element)
         }
-    
+        
         save()
     }
     
     func update(element: MKMapItem) -> Bool {
-        // TODO: Реализовать обновление элемента в хранилище
+    
         return true
     }
     
@@ -69,7 +70,7 @@ final class RepositoryService {
                                                               requiringSecureCoding: false)
             UserDefaults.standard.set(data, forKey: UDRouteKey)
             
-        } catch  {
+        } catch {
             print(error.localizedDescription)
         }
         

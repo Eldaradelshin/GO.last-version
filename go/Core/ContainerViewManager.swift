@@ -1,4 +1,5 @@
 import UIKit
+//swiftlint:disable weak_delegate
 
 /// Управляет логикой перемещения контейнера
 class ContainerViewManager: NSObject {
@@ -31,7 +32,7 @@ class ContainerViewManager: NSObject {
     
     // Перемещает контейнер на следующую позицию по направлению жеста
     func moveContainer(direction: UISwipeGestureRecognizer.Direction,
-                               heightConstraint: CGFloat) {
+                       heightConstraint: CGFloat) {
         
         var position: CGFloat
         
@@ -42,17 +43,16 @@ class ContainerViewManager: NSObject {
             } else {
                 position = lower
             }
-            
         } else {
+            
+            if heightConstraint == top {
+                delegate?.buldRoute()
+            }
+            
             position = middle
-            // TODO: - Сделать логику что маршрут строится только если таблица опускается сверху к центру.
-            // Сейчас выполняется и когда снизу к центру
-            delegate?.buldRoute()
         }
         
-        // TODO: - Настроить исчезновение клавиатуры если контейнер опускается вниз
         animate(to: position)
-        
     }
     
     // Анимирует констрейнт контейнера
