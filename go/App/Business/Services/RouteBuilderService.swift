@@ -35,7 +35,7 @@ class RouteBuilderService {
     
     func buildRouteFromSeqments(startLocation:MKMapItem, routeLocations: [MKMapItem]) -> [MKRoute] {
         
-        var nonorderedRouteItems: [MKMapItem] = routeLocations
+        let nonorderedRouteItems: [MKMapItem] = routeLocations
         
         //массив стартовых точек
         var startItems = [MKMapItem]()

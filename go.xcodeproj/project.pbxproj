@@ -55,9 +55,9 @@
 		627040B621A86137003CAE0A /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				627040B721A86157003CAE0A /* LocationService.swift */,
 				9444222021A88DA50005DA0B /* RepositoryService.swift */,
 				627040FC21AD25B9003CAE0A /* RouteBuilderService.swift */,
+				627040B721A86157003CAE0A /* LocationService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -169,8 +169,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 94C9E1A821A685AC00C722C3 /* Build configuration list for PBXNativeTarget "go" */;
 			buildPhases = (
-				94E908EA21AD162000E7A31D /* ShellScript */,
 				259D97F6FAF55A77C859BF84 /* [CP] Check Pods Manifest.lock */,
+				94E908EA21AD162000E7A31D /* ShellScript */,
 				94C9E19221A685AC00C722C3 /* Sources */,
 				94C9E19321A685AC00C722C3 /* Frameworks */,
 				94C9E19421A685AC00C722C3 /* Resources */,
@@ -236,8 +236,6 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
@@ -256,11 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
-			);
-			outputFileListPaths = (
 			);
 			outputPaths = (
 			);

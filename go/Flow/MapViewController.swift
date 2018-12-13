@@ -11,7 +11,13 @@ class MapViewController: UIViewController {
     static var globalRegion = MKCoordinateRegion()
     let locationManager = CLLocationManager()
     let repository = RepositoryService.shared
+    let routeBuilder = RouteBuilderService()
     var destination = LocationsListViewController()
+    
+    var currentLocation = MKMapItem()
+    var routeItems: [MKMapItem] {
+        return repository.read()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +26,10 @@ class MapViewController: UIViewController {
         containerManager.delegate = self
         containerManager.constraint = topConstraintContainer
         setupLocationManager()
+        
+        let routeArray = routeBuilder.buildRouteFromSeqments(startLocation: self.currentLocation, routeLocations: self.routeItems)
+        
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -64,10 +74,33 @@ class MapViewController: UIViewController {
 extension MapViewController: BuildRoute {
     
     func buldRoute() {
-        
         destination.placesSearchController.isActive = false
         let array = repository.read()
         print("building route from \(array.count) points")
+        self.addDestinationPins()
+    }
+    
+    func addDestinationPins() {
+        if routeItems.count != 0 {
+            mapView.removeAnnotations(mapView.annotations)
+            
+            var annotationsArray = [MKPointAnnotation]()
+            
+            for routeItem in routeItems {
+                let placemark = routeItem.placemark
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = placemark.coordinate
+                annotation.title = placemark.name
+                if let city = placemark.locality,
+                    let state = placemark.administrativeArea {
+                    annotation.subtitle = "\(city) \(state)"
+                }
+                annotationsArray.append(annotation)
+            }
+            print("Всего точек надо нанести: \(annotationsArray.count)")
+            
+            mapView.addAnnotations(annotationsArray)
+        }
     }
     
 }
@@ -110,6 +143,15 @@ extension MapViewController: CLLocationManagerDelegate {
             let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
             let region = MKCoordinateRegion(center: location.coordinate, span: span)
             mapView.setRegion(region, animated: true)
+            self.currentLocation = MKMapItem(placemark: MKPlacemark(coordinate: location.coordinate))
+            
+             print("Старт маршрута: \(currentLocation.placemark.coordinate)")
+             print("---------------------------------------------")
+            
+            if routeItems.count > 0 {
+                self.addDestinationPins()
+            }
+            
         }
         
     }

@@ -66,6 +66,7 @@ extension LocationsListViewController: UITableViewDataSource, UITableViewDelegat
                                       preferredStyle: .alert)
         let save = UIAlertAction(title: "Да", style: .default) { _ in
             self.repositoryService.create(element: location)
+            
         }
         let cancel = UIAlertAction(title: "Нет", style: .cancel, handler: nil)
         
